@@ -30,11 +30,13 @@ $pkgmgr update -y
 $pkgmgr install vim zsh curl wget git man -y
 if [ "$DIST_NAME" = "ubuntu" ]; then
   $pkgmgr install build-essential -y
+  $pkgmgr install python3 -y
 elif [ "$DIST_NAME" = "centos" ]; then
   $pkgmgr group mark install "Development Tools"
   $pkgmgr group update "Development Tools"
   $pkgmgr groupinstall -y 'development tools'
   $pkgmgr install sudo -y
+  $pkgmgr install python3 -y
 fi
 
 

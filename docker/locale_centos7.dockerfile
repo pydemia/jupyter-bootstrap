@@ -31,6 +31,8 @@ RUN sed -i 's/^auth       required   pam_shells.so/auth       sufficient   pam_s
 COPY install_zsh.sh .
 RUN ./install_zsh.sh
 
+COPY install_vim.sh .
+RUN ./install_vim.sh
 # As user: pydemia
 # RUN adduser pydemia && \
 #     echo "pydemia ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/pydemia && \
@@ -41,6 +43,11 @@ RUN chown pydemia:pydemia /home/pydemia/install_zsh.sh && \
     su - pydemia -c "cd ~;bash /home/pydemia/install_zsh.sh"
 
 RUN chown -R pydemia:pydemia /home/pydemia/.oh-my-zsh
+
+COPY install_vim.sh /home/pydemia/install_vim.sh
+RUN chown pydemia:pydemia /home/pydemia/install_vim.sh && \
+    su - pydemia -c "cd ~;bash /home/pydemia/install_vim.sh"
+
 
 ENV PYTHONENCODING=UTF-8
 ENV LANG=ko_KR.UTF-8
