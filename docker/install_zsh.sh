@@ -9,7 +9,8 @@ esac
 
 # Install ZSH
 #$pkgmgr install zsh -y
-chsh -s /usr/bin/zsh #"$(which zsh)"
+#chsh -s /usr/bin/zsh #"$(which zsh)"
+chsh -s $(which zsh)
 
 #$pkgmgr install dconf-cli uuid-runtime
 

@@ -33,7 +33,8 @@ if [ "$DIST_NAME" = "ubuntu" ]; then
 elif [ "$DIST_NAME" = "centos" ]; then
   $pkgmgr group mark install "Development Tools"
   $pkgmgr group update "Development Tools"
-  #$pkgmgr groupinstall -y 'development tools'
+  $pkgmgr groupinstall -y 'development tools'
+  $pkgmgr install sudo -y
 fi
 
 
@@ -64,20 +65,22 @@ elif [ "$DIST_NAME" = "centos" ]; then
 fi
 
 # Install sudo
-$pkgmgr install sudo
+$pkgmgr install sudo -y
 
 # # Set Default User: pydemia
 USERNAME="pydemia"
 echo "Set Default User: $USERNAME"
 
 if [ "$DIST_NAME" = "ubuntu" ]; then
-  adduser $USERNAME
+  adduser --quiet --disabled-password $USERNAME \
+  && echo "$USERNAME:ubuntu" | chpasswd
   usermod -aG sudo $USERNAME
+
 elif [ "$DIST_NAME" = "centos" ]; then
-  adduser $USERNAME
+  adduser $USERNAME --password "centos"
   usermod -aG wheel $USERNAME # wheel: sudo privileges.
-  echo "pydemia ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/pydemia && \
-  chmod 0440 /etc/sudoers.d/pydemia
+  echo "pydemia ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/pydemia && \
+  chmod -R 0440 /etc/sudoers.d
 fi
 
 echo "Setting Finished."
