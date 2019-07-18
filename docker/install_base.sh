@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Get Argument
 for ARGUMENT in "$@"
 do
@@ -36,9 +38,10 @@ elif [ "$DIST_NAME" = "centos" ]; then
   $pkgmgr group update "Development Tools"
   $pkgmgr groupinstall -y 'development tools'
   $pkgmgr install sudo -y
-  $pkgmgr install python3 -y
+  $pkgmgr install python36u python36u-libs python36u-devel python36u-pip -y
 fi
 
+$pkgmgr update -y
 
 # Set Locales
 # LOCALE=ko_KR
@@ -67,7 +70,17 @@ elif [ "$DIST_NAME" = "centos" ]; then
 fi
 
 # Install sudo
+$pkgmgr update -y
 $pkgmgr install sudo -y
+
+# Install JDK
+if [ "$DIST_NAME" = "ubuntu" ]; then
+  $pkgmgr install openjdk-8-jdk -y --fix-missing
+elif [ "$DIST_NAME" = "centos" ]; then
+  $pkgmgr install java-1.8.0-openjdk java-1.8.0-openjdk-devel -y
+fi
+
+echo "$(which java)"
 
 # # Set Default User: pydemia
 USERNAME="pydemia"
@@ -76,13 +89,19 @@ echo "Set Default User: $USERNAME"
 if [ "$DIST_NAME" = "ubuntu" ]; then
   adduser --quiet --disabled-password $USERNAME \
   && echo "$USERNAME:ubuntu" | chpasswd
-  usermod -aG sudo $USERNAME
-
+  #usermod -aG sudo $USERNAME
 elif [ "$DIST_NAME" = "centos" ]; then
   adduser $USERNAME --password "centos"
-  usermod -aG wheel $USERNAME # wheel: sudo privileges.
-  echo "pydemia ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/pydemia && \
-  chmod -R 0440 /etc/sudoers.d
+  #usermod -aG wheel $USERNAME # wheel: sudo privileges.
+  #echo "pydemia ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/pydemia && \
+  #chmod -R 0440 /etc/sudoers.d
+fi
+
+JAVA_HOME=`java -XshowSettings:properties -version 2>&1 > /dev/null | grep -E "java.home = ([^ ]*)$"|awk '{print $3}' |sed -n 's/\/jre$//p'`
+if [ "$DIST_NAME" = "ubuntu" ]; then
+  echo "export JAVA_HOME=\"$JAVA_HOME\"" >> /etc/bash.bashrc
+elif [ "$DIST_NAME" = "centos" ]; then
+  echo "export JAVA_HOME=\"$JAVA_HOME\"" >> /etc/bashrc
 fi
 
 echo "Setting Finished."

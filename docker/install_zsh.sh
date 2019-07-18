@@ -1,3 +1,5 @@
+#!/bin/bash
+
 DIST_NAME=`awk -F= '/^ID=/{print $2}' /etc/*-release | sed 's/\"//g'`
 echo "OS Distro: $DIST_NAME"
 
@@ -39,4 +41,10 @@ rm -rf ./pydemia-theme
 
 if [ -f ~/.zcompdump ]; then
     rm -f ~/.zcompdump*
+fi
+
+if type -p java; then
+  JAVA_HOME=`java -XshowSettings:properties -version 2>&1 > /dev/null | grep -E "java.home = ([^ ]*)$"|awk '{print $3}' |sed -n 's/\/jre$//p'`
+  echo "export JAVA_HOME=\"$JAVA_HOME\"" >> ~/.bashrc;
+  echo "export JAVA_HOME=\"$JAVA_HOME\"" >> ~/.zshrc;
 fi
