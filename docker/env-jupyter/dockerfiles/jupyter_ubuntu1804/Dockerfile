@@ -18,11 +18,13 @@ RUN bash ./install_miniconda.sh
 RUN bash ./env-jupyter/install_jupyter.sh
 
 USER root
-RUN cp /home/pydemia/env-jupyter/jupyter.service /etc/systemd/system/
-RUN systemctl daemon-reload
+#RUN cp /home/pydemia/env-jupyter/jupyter.service /etc/systemd/system/
+#RUN systemctl daemon-reload
+COPY --chown=root:root /home/pydemia/env-jupyter/init_jupyter /usr/local/bin/init_jupyter
+RUN chmod 755 /usr/local/bin/init_jupyter
 
 USER pydemia
 RUN rm -f ./install_miniconda.sh ./miniconda.bashrc ./miniconda.zshrc
 RUN rm -rf ./env-jupyter 
 
-CMD ["zsh"]
+CMD ( init_jupyter & ) && bundle exec zsh:default
