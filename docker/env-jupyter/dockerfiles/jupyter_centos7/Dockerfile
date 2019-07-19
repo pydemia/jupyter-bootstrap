@@ -1,20 +1,27 @@
 FROM pydemia/centos7-locale-zsh
 MAINTAINER Youngju Jaden Kim <pydemia@gmail.com>
 
+USER root
+RUN apt-get update && apt-get install texlive-xetex -y
+
 USER pydemia
 WORKDIR /home/pydemia
 RUN mkdir /home/pydemia/apps
 
-COPY env-jupyter/install_miniconda.sh .
-COPY env-jupyter/miniconda.bashrc .
-COPY env-jupyter/miniconda.zshrc .
+COPY --chown=pydemia:pydemia env-jupyter/install_miniconda.sh .
+COPY --chown=pydemia:pydemia env-jupyter/miniconda.bashrc .
+COPY --chown=pydemia:pydemia env-jupyter/miniconda.zshrc .
 
-COPY env-jupyter ./env-jupyter
+COPY --chown=pydemia:pydemia env-jupyter ./env-jupyter
 
 RUN bash ./install_miniconda.sh
 RUN bash ./env-jupyter/install_jupyter.sh
 
-RUN rm -f ./install_miniconda.sh miniconda.bashrc miniconda.zshrc
+USER root
+RUN cp /home/pydemia/env-jupyter/jupyter.service /etc/systemd/system/
+RUN systemctl daemon-reload
+
+RUN rm -f ./install_miniconda.sh ./miniconda.bashrc ./miniconda.zshrc
 RUN rm -rf ./env-jupyter
 
 

@@ -23,18 +23,17 @@ COPY env-base/install_vim.sh .
 RUN ./install_vim.sh
 RUN rm -f ./install_vim.sh
 
-#USER pydemia
-COPY env-base/install_zsh.sh /home/pydemia/
-RUN chown pydemia:pydemia /home/pydemia/install_zsh.sh && \
-    su - pydemia -c "cd ~;bash /home/pydemia/install_zsh.sh"
-RUN rm -f /home/pydemia/install_zsh.sh
+USER pydemia
+WORKDIR /home/pydemia
+COPY --chown=pydemia:pydemia env-base/install_zsh.sh .
+RUN bash ./install_zsh.sh
+RUN rm -f ./install_zsh.sh
 
 RUN chown -R pydemia:pydemia /home/pydemia/.oh-my-zsh
 
-COPY env-base/install_vim.sh /home/pydemia/install_vim.sh
-RUN chown pydemia:pydemia /home/pydemia/install_vim.sh && \
-    su - pydemia -c "cd ~;bash /home/pydemia/install_vim.sh"
-RUN rm -f /home/pydemia/install_vim.sh
+COPY --chown=pydemia:pydemia env-base/install_vim.sh /home/pydemia/install_vim.sh
+RUN bash ./install_vim.sh
+RUN rm -f ./install_vim.sh
 
 ENV PYTHONENCODING=UTF-8
 ENV LANG=ko_KR.UTF-8

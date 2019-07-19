@@ -10,6 +10,21 @@ ipyparallel -y \
 && conda install -c conda-forge nb_conda_kernels -y \
 && pip install jupyter_tensorboard"
 
+bash -i -c "conda install -c conda-forge jupyter_contrib_nbextensions -y \
+jupyter contrib nbextension install --user \
+conda install -c conda-forge jupyter_nbextensions_configurator -y \
+jupyter nbextensions_configurator enable --user \
+jupyter nbextension enable codefolding/main \
+jupyter nbextension enable varInspector/main"
+
+# Jupyter Config
+cp -r ./env-jupyter/.jupyter ./
+
+
+bash -ic "mkdir -p $(jupyter --data-dir)/nbextensions/jupyter_themes"
+bash -ic "wget https://raw.githubusercontent.com/merqurio/jupyter_themes/master/theme_selector.js -O $(jupyter --data-dir)/nbextensions/jupyter_themes/theme_selector.js"
+bash -ic "jupyter nbextension enable jupyter_themes/theme_selector"
+
 # Install Default Python Kernel
 bash -i \
 ./env-jupyter/install_kernel_python.sh \
