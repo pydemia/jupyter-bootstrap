@@ -2,7 +2,7 @@ FROM pydemia/centos7-locale-zsh
 MAINTAINER Youngju Jaden Kim <pydemia@gmail.com>
 
 USER root
-RUN apt-get update && apt-get install texlive-xetex -y
+RUN yum update && yum install texlive-xetex -y
 
 USER pydemia
 WORKDIR /home/pydemia
