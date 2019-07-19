@@ -22,9 +22,14 @@ USER root
 #RUN systemctl daemon-reload
 RUN cp /home/pydemia/env-jupyter/init_jupyter /usr/local/bin/init_jupyter
 RUN chmod 755 /usr/local/bin/init_jupyter
+RUN cp /home/pydemia/env-jupyter/autostart /usr/local/bin/autostart
+RUN chmod 755 /usr/local/bin/autostart
+
+
 
 USER pydemia
 RUN rm -f ./install_miniconda.sh ./miniconda.bashrc ./miniconda.zshrc
 RUN rm -rf ./env-jupyter
 
-CMD ( init_jupyter & ) && bundle exec zsh:default
+CMD autostart
+
