@@ -19,7 +19,7 @@ jupyter nbextension enable varInspector/main"
 
 # Jupyter Config
 cp -r ./env-jupyter/.jupyter ./
-
+mkdir -p ./.jupyter/logs
 
 bash -ic "mkdir -p $(jupyter --data-dir)/nbextensions/jupyter_themes"
 bash -ic "wget https://raw.githubusercontent.com/merqurio/jupyter_themes/master/theme_selector.js -O $(jupyter --data-dir)/nbextensions/jupyter_themes/theme_selector.js"
