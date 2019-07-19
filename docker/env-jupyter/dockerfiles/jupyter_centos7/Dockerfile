@@ -21,6 +21,7 @@ USER root
 RUN cp /home/pydemia/env-jupyter/jupyter.service /etc/systemd/system/
 RUN systemctl daemon-reload
 
+USER pydemia
 RUN rm -f ./install_miniconda.sh ./miniconda.bashrc ./miniconda.zshrc
 RUN rm -rf ./env-jupyter
 
