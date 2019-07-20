@@ -29,7 +29,7 @@ if [ "$DIST_NAME" = "ubuntu" ]; then
 fi
 
 $pkgmgr update -y
-$pkgmgr install vim zsh curl wget git man -y
+$pkgmgr install vim zsh curl wget git man htop -y
 if [ "$DIST_NAME" = "ubuntu" ]; then
   $pkgmgr install build-essential -y
   $pkgmgr install python3 -y

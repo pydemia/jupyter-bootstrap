@@ -1,9 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 ## turn on bash's job control
 set -m
-
-. /home/pydemia/.bashrc &
 
 # Start the primary process and put it in the background
 init_jupyter &
