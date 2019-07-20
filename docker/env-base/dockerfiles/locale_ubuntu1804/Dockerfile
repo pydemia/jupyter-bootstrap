@@ -1,5 +1,5 @@
 FROM ubuntu:18.04
-LABEL Youngju Jaden Kim <pydemia@gmail.com>
+LABEL maintainer="Youngju Jaden Kim <pydemia@gmail.com>"
 
 #VOLUME ["/sys/fs/cgroup"]
 #ENTRYPOINT ["/usr/sbin/init"]

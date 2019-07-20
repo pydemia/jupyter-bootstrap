@@ -1,19 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 ## turn on bash's job control
 set -m
 
-if [ -n "$BASH_ENV" ]; then
-  . "$BASH_ENV"
-else
-  . /home/pydemia/.bashrc
-fi
-
-# Start the primary process and put it in the background
-init_jupyter &
-
-# Start the helper process
-zsh
+# Start the primary process and put it in the background & # Start the helper process
+init_jupyter & zsh
 
 # the my_helper_process might need to know how to wait on the
 # primary process to start before it does its work and returns

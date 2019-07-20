@@ -1,5 +1,5 @@
 FROM pydemia/centos7-locale-zsh
-LABEL Youngju Jaden Kim <pydemia@gmail.com>
+LABEL maintainer="Youngju Jaden Kim <pydemia@gmail.com>"
 
 USER root
 RUN yum update && yum install texlive-xetex -y
@@ -29,9 +29,8 @@ RUN chmod 755 /usr/local/bin/autostart
 USER pydemia
 RUN rm -f ./install_miniconda.sh ./miniconda.bashrc ./miniconda.zshrc
 RUN rm -rf ./env-jupyter
+RUN mkdir ./workspace
 
 EXPOSE 8888
-ENV BASH_ENV=/home/pydemia/.bashrc
-ENV ZSH_ENV=/home/pydemia/.zshrc
-CMD autostart
+CMD init_jupyter & zsh
 

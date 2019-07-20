@@ -1,5 +1,5 @@
 FROM pydemia/ubuntu1804-locale-zsh
-LABEL Youngju Jaden Kim <pydemia@gmail.com>
+LABEL maintainer="Youngju Jaden Kim <pydemia@gmail.com>"
 
 USER root
 RUN apt-get update && apt-get install texlive-xetex -y
@@ -28,8 +28,8 @@ RUN chmod 755 /usr/local/bin/autostart
 
 USER pydemia
 RUN rm -f ./install_miniconda.sh ./miniconda.bashrc ./miniconda.zshrc
-RUN rm -rf ./env-jupyter 
+RUN rm -rf ./env-jupyter
+RUN mkdir ./workspace
 
 EXPOSE 8888
-CMD autostart
-
+CMD init_jupyter & zsh

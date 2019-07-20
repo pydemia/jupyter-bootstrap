@@ -46,7 +46,7 @@ c.Application.log_level = 30
 #  Use '*' to allow any origin to access your server.
 #
 #  Takes precedence over allow_origin_pat.
-#c.NotebookApp.allow_origin = ''
+c.NotebookApp.allow_origin = '*'
 
 ## Use a regular expression for the Access-Control-Allow-Origin header
 #
@@ -75,7 +75,6 @@ c.NotebookApp.allow_root = False
 #  standard library module, which allows setting of the BROWSER environment
 #  variable to override it.
 #c.NotebookApp.browser = ''
-#c.NotebookApp.browser = False
 
 ## The full path to an SSL/TLS certificate file.
 #c.NotebookApp.certfile = '/home/pydemia/.ssh/pydemia-server-jupyter-notebook-ssl-rsa.pem'
@@ -206,7 +205,7 @@ c.NotebookApp.ip = "0.0.0.0"
 #c.NotebookApp.nbserver_extensions = {}
 
 ## The directory to use for notebooks and kernels.
-c.NotebookApp.notebook_dir = '/home/pydemia'
+c.NotebookApp.notebook_dir = '/home/pydemia/workspace'
 
 ## Whether to open in a browser after starting. The specific browser used is
 #  platform dependent and determined by the python standard library `webbrowser`
@@ -273,7 +272,7 @@ c.NotebookApp.ssl_options = {}
 ## Whether to trust or not X-Scheme/X-Forwarded-Proto and X-Real-Ip/X-Forwarded-
 #  For headerssent by the upstream reverse proxy. Necessary if the proxy handles
 #  SSL
-#c.NotebookApp.trust_xheaders = False
+c.NotebookApp.trust_xheaders = True
 
 ## DEPRECATED, use tornado_settings
 #c.NotebookApp.webapp_settings = {}
@@ -301,7 +300,7 @@ c.NotebookApp.ssl_options = {}
 #  almost certainly doesn't).
 #
 #  Should be in the form of an HTTP origin: ws[s]://hostname[:port]
-c.NotebookApp.websocket_url = 'ws://0.0.0.0:8888'
+#c.NotebookApp.websocket_url = 'ws://0.0.0.0:8888'
 
 #------------------------------------------------------------------------------
 # ConnectionFileMixin(LoggingConfigurable) configuration
