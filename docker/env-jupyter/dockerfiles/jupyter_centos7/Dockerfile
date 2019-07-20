@@ -31,5 +31,7 @@ RUN rm -f ./install_miniconda.sh ./miniconda.bashrc ./miniconda.zshrc
 RUN rm -rf ./env-jupyter
 
 EXPOSE 8888
+ENV BASH_ENV=/home/pydemia/.bashrc
+ENV ZSH_ENV=/home/pydemia/.zshrc
 CMD autostart
 
