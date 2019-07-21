@@ -14,6 +14,7 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+alias nblogs=cat ~/.jupyter/logs/notebook.log > ~/.jupyter/logs/notebook.log.tmp | cat
 
 export APPS_PATH="/home/pydemia/apps"
 export PATH="$APPS_PATH/anaconda3/bin:$PATH"
